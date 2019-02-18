@@ -8,6 +8,7 @@ import lombok.Setter;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -23,12 +24,23 @@ public class TagsService {
         return tagsDao.addTag(tag);
     }
 
-    public Tag getTag(String tagName){
-        return tagsDao.getTag(tagName);
+    public Tag getTagByName(String tagName){
+        return tagsDao.getTagByName(tagName);
     }
 
     public List<Tag> getAllTags(){
         return tagsDao.getAllTags();
     }
+    public List<Tag> getAllTags(List<String> ids){
+        return tagsDao.getAllTags(ids);
+    }
 
+    public Set<Tag> getAllParentTags(List<String> ids) {
+        return tagsDao.getAllParentTags(ids);
+    }
+
+    public Tag getTagById(String id) {
+
+        return tagsDao.getTagById(id);
+    }
 }

@@ -4,10 +4,14 @@
 package com.myproject.models;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 import lombok.ToString;
+import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
+import org.mongodb.morphia.annotations.Reference;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -18,7 +22,11 @@ import java.util.List;
 public class Tag {
     @NotNull
     @Id
+    @JsonSerialize(using = ToStringSerializer.class)
+    private ObjectId tagId;
+    @NotNull
     private String tagName;
-    private String parentTag;
+    @Reference
+    private Tag parentTag;
 
 }

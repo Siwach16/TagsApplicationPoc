@@ -12,6 +12,7 @@ import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
+import java.util.Set;
 
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -23,15 +24,33 @@ public class TagsResource {
     private TagsService tagsService;
 
     @GET
-    @Path("/getTag/{name}")
-    public Tag getTags(@PathParam("name") String name){
-        return tagsService.getTag(name);
+    @Path("/getTag/name/")
+    public Tag getTagByName(@QueryParam("name") String name){
+        return tagsService.getTagByName(name);
     }
+
+    @GET
+    @Path("/getTag/id/{id}")
+    public Tag getTagById(@PathParam("id") String id){
+        return tagsService.getTagById(id);
+    }
+
 
     @GET
     @Path("/getAllTags")
     public List<Tag> getAllTags(){
         return tagsService.getAllTags();
+    }
+    @GET
+    @Path("/getAllParentTags")
+    public Set<Tag> getAllParentTags(@QueryParam("id") List<String> ids){
+        return tagsService.getAllParentTags(ids);
+    }
+
+    @GET
+    @Path("/getAllTagsById")
+    public List<Tag> getAllTags(@QueryParam("id") List<String> ids){
+        return tagsService.getAllTags(ids);
     }
 
     @POST
